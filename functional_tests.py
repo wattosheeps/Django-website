@@ -9,9 +9,11 @@ class firstVisitorTest(unittest.TestCase):
         self.browser.quit()
     def test_can_create_a_new_CV(self):
         #User visits the homepage
-        self.browser.get('http://localhost:8000/cv')
+        self.browser.get('http://127.0.0.1:8000/cv')
         #User can see that CV is a title on the home page and a header
-        
+        self.assertIn('CV',self.browser.title)
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('CV', header_text)
         #User clicks on the "Update summary" button to add a summary of the user
 
         #Types in "Generic summary" into the text box
