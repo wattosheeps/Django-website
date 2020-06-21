@@ -1,4 +1,5 @@
-<html>
-    <title>CV</title>
-    <h1>CV page</h1>
-</html>
+{% extends 'cv/base.html' %}
+    {% block content %}
+        <h2>Summary</h2>           
+        <a href="/edit-summary"><button type="submit">Update Summary</button></a>
+    {% endblock %}

@@ -15,7 +15,11 @@ class firstVisitorTest(unittest.TestCase):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('CV', header_text)
         #User clicks on the "Update summary" button to add a summary of the user
-
+        self.browser.find_element_by_xpath('//button[text()="Update Summary"]').click()
+        #self.browser.get('http://127.0.0.1:8000/cv/edit-summary')
+        time.sleep(10)
+        header_text = self.browser.find_element_by_tag_name('h2').text
+        self.assertIn('Summary', header_text)
         #Types in "Generic summary" into the text box
 
         #Updates the page by hitting enter, and now the page shows the updated summary
@@ -25,5 +29,6 @@ class firstVisitorTest(unittest.TestCase):
 
         #The user makes another update to the summary and hits enter again to see the change
         self.fail('Finish the test!')
+        
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
