@@ -1,5 +1,12 @@
 {% extends 'cv/base.html' %}
     {% block content %}
-        <h2>Summary</h2>           
-        <a href="/edit-summary"><button type="submit">Update Summary</button></a>
+        <div class="summary-text">
+                    
+            <h2>Summary</h2>
+            <p id="id_summary">{{ summary.text|linebreaksbr }}</p>
+            <div class="date">
+                <p>last edited: {{ summary.last_edited }}</p>
+            </div>
+            <a href="edit-summary"><button type="submit">Update Summary</button></a>
+        </div>        
     {% endblock %}

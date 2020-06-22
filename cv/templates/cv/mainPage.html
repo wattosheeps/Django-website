@@ -1,0 +1,12 @@
+{% extends 'cv/cv_page.html' %}
+
+{% block content %}
+    <div class="summary">
+                
+        <h2>Summary</h2>
+        <p>{{ summary.text|linebreaksbr }}</p>
+        <div class="date">
+            <p>last edited: {{ summary.last_edited }}</p>
+        </div>
+    </div>
+{% endblock %}

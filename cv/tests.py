@@ -15,9 +15,16 @@ class cvPageTest(TestCase):
     def test_button_has_correct_url_redirect(self):
         response = self.client.get('/cv/')
         html = response.content.decode('utf8')
-        self.assertIn('href="/edit-summary"',html)
+        self.assertIn('href="edit-summary"',html)
         found = resolve('/cv/edit-summary')
         self.assertEqual(found.func, edit_summary)
+    def test_shows_correct_summary(self):
+        Summary.objects.create(text='Generic Summary')
+        saved_items = Summary.objects.all()
+        self.assertEqual(saved_items.count(), 1)
+        response = self.client.get('/cv/')
+        
+        self.assertIn('Generic Summary', response.content.decode())
 class SummaryModelTest(TestCase):
     def test_saving_and_retrieving_summary(self):
         summary = Summary()
@@ -29,4 +36,3 @@ class SummaryModelTest(TestCase):
 
         first_saved_item = saved_items[0]
         self.assertEqual(first_saved_item.text, 'Generic Summary')
-        

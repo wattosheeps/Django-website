@@ -7,6 +7,9 @@ class firstVisitorTest(unittest.TestCase):
         self.browser = webdriver.Firefox()
     def tearDown(self):
         self.browser.quit()
+    def check_for_row_in_list_table(self, row_text):
+        summary = self.browser.find_element_by_id('id_summary')
+        self.assertEquals(row_text, summary.text)
     def test_can_create_a_new_CV(self):
         #User visits the homepage
         self.browser.get('http://127.0.0.1:8000/cv')
@@ -16,14 +19,17 @@ class firstVisitorTest(unittest.TestCase):
         self.assertIn('CV', header_text)
         #User clicks on the "Update summary" button to add a summary of the user
         self.browser.find_element_by_xpath('//button[text()="Update Summary"]').click()
-        #self.browser.get('http://127.0.0.1:8000/cv/edit-summary')
-        time.sleep(10)
+        time.sleep(1)
         header_text = self.browser.find_element_by_tag_name('h2').text
         self.assertIn('Summary', header_text)
         #Types in "Generic summary" into the text box
-
+        inputbox = self.browser.find_element_by_id('id_text')
+        inputbox.clear()
+        inputbox.send_keys('Generic summary')
         #Updates the page by hitting enter, and now the page shows the updated summary
-
+        self.browser.find_element_by_xpath('//button[text()="Save"]').click()
+        time.sleep(1)
+        self.check_for_row_in_list_table('Generic summary')
         #User clicks on the "Update summary" button again, and this time sees the current
         #summary already used as a placeholder in the textbox
 
