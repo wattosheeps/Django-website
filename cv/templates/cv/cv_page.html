@@ -11,5 +11,10 @@
         </div>        
         <div class="Education and qualifications">
             <a href="education-overview"><h2 id="id_education_heading">Education and Qualifications</h2></a>
+            {% for qualification in qualifications %}
+            <a href="{% url 'edit_education' pk=qualification.pk %}"><h3>{{ qualification.location }}</h3></a>
+                <h4>{{ qualification.date }}</h4>
+                <p>{{ qualification.description|linebreaksbr }}</p>
+    {% endfor %}
         </div>
     {% endblock %}

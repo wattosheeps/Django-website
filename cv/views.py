@@ -9,10 +9,11 @@ from .models import Qualification
 # Create your views here.
 def cv_page(request):
     summary = Summary.objects.all()
+    qualifications = Qualification.objects.filter(date_added__lte=timezone.now()).order_by('date_added')
     if summary.count() == 0:
-        return render(request,'cv\cv_page.html',{'summary': ""})
+        return render(request,'cv\cv_page.html',{'summary': "",'qualifications':qualifications})
     else:
-        return render(request,'cv\cv_page.html',{'summary':summary[0]})
+        return render(request,'cv\cv_page.html',{'summary':summary[0],'qualifications':qualifications})
 def edit_summary(request):
     post = get_object_or_404(Summary, pk=1)
     if request.method == "POST":
@@ -40,3 +41,15 @@ def new_education(request):
     else:
         form = QualificationForm()
     return render(request, 'cv\\new_education.html', {'form':form})
+def edit_education(request,pk):
+    qualification = get_object_or_404(Qualification, pk=pk)
+    if request.method == "POST":
+        form = QualificationForm(request.POST, instance=qualification)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.date_added = timezone.now()
+            post.save()
+            return redirect('education_overview')
+    else:
+        form = QualificationForm(instance=qualification)
+    return render(request, 'cv\\new_education.html', {'form': form})

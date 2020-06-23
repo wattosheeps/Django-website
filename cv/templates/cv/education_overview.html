@@ -4,8 +4,8 @@
     <h2>Education and Qualifications</h2>
         <a href="new-education"><button type="submit">Add</button></a>
     {% for qualification in qualifications %}
-        <div class="qualifications" id={{qualification.location_id}}>
-            <h2>{{ qualification.location }}</h2>
+        <div class="qualifications" >
+            <h2><a href="{% url 'edit_education' pk=qualification.pk %}">{{ qualification.location }}</a></h2>
                 <h3>{{ qualification.date }}</h3>
                 <p>{{ qualification.description|linebreaksbr }}</p>
         </div>

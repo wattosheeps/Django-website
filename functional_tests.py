@@ -70,11 +70,26 @@ class firstVisitorTest(unittest.TestCase):
         description = self.browser.find_element_by_id('id_description')
         description.clear()
         description.send_keys('Generic description')
-        self.browser.find_element_by_xpath('//button[text()="Save"]').click()
+        
         time.sleep(1)
         #The user clicks "submit" and is taken back to the Education and Qualifications page
+        self.browser.find_element_by_xpath('//button[text()="Save"]').click()
+        
+        #The user can now see the listings
+        newListing = self.browser.find_element_by_link_text('test town')
+        #The user then clicks on their uploaded qualification
+        newListing.click()
+        #The user is taken to another page, where they are able to edit the data
+        location = self.browser.find_element_by_id('id_location')
+        self.assertEqual('test town',location)
+        #The user changes the date
+        date = self.browser.find_element_by_id('id_date')
+        date.clear()
+        date.send_keys(2017 - 2020)
+        #The user clicks submit
+        self.browser.find_element_by_xpath('//button[text()="Save"]').click()
+        #The user is now returned to the overview page where they can now see their updated listing
 
-        #The user can now see the listing
         self.fail('Implement dates properly')
         self.fail('Finish the test!')
 
