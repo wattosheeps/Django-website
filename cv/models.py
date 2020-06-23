@@ -4,3 +4,9 @@ from django.utils import timezone
 class Summary(models.Model):
     text = models.TextField()
     last_edited = models.DateTimeField(default=timezone.now)
+
+class Qualification(models.Model):
+    date = models.TextField()
+    location = models.TextField()
+    description = models.TextField()
+    date_added = models.DateTimeField(default=timezone.now)

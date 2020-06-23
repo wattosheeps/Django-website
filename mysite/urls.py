@@ -21,5 +21,4 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('cv/',include('cv.urls')),
     
-    
 ]
