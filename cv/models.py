@@ -17,3 +17,8 @@ class Experience(models.Model):
     duties = models.TextField()
     description = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
+
+class Skill(models.Model):
+    heading = models.TextField()
+    info = models.TextField()
+    date_added = models.DateTimeField(default=timezone.now)

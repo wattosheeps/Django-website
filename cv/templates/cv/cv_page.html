@@ -1,5 +1,20 @@
 {% extends 'cv/base.html' %}
     {% block content %}
+        <div class="basic information">
+            <h2>Archie Watson</h2>
+            <p>Address Line 1
+               <br>Address Line 2
+               <br>Town
+               <br>City
+               <br>Postcode
+            </p>
+            <p>
+                Mobile Number
+            </p>
+            <p>
+                Email Address
+            </p>
+        </div>
         <div class="summary-text">
                     
             <h2>Summary</h2>
@@ -27,5 +42,13 @@
                 <p>{{ experience.description|linebreaksbr }}</p>
             {% endfor %}
             <a href="new-experience"><button type="submit">Add Work Experience</button></a>
+        </div>
+        <div class="Skills">
+            <h2 id="id_skills_heading">Additional Skills and Information</h2>
+            {% for skill in skills %}
+            <a href="{% url 'edit_skill' pk=skill.pk %}"><h3>{{ skill.heading }}</h3></a>
+                <p>{{ skill.info|linebreaksbr }}</p>
+            {% endfor %}
+            <a href="new-skill"><button type="submit">Add Skill/Information</button></a>
         </div>
     {% endblock %}

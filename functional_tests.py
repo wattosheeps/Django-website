@@ -82,7 +82,7 @@ class firstVisitorTest(unittest.TestCase):
         #The user changes the date
         date = self.browser.find_element_by_id('id_date')
         date.clear()
-        date.send_keys(2017 - 2020)
+        date.send_keys('2017 - 2020')
         #The user clicks submit
         self.browser.find_element_by_xpath('//button[text()="Save"]').click()
         #The user is now returned to the overview page where they can now see their updated listing
@@ -125,7 +125,7 @@ class firstVisitorTest(unittest.TestCase):
         #The user changes the date
         date = self.browser.find_element_by_id('id_date')
         date.clear()
-        date.send_keys(2017 - 2020)
+        date.send_keys('2017 - 2020')
         #The user clicks submit
         self.browser.find_element_by_xpath('//button[text()="Save"]').click()
         #User edits the data

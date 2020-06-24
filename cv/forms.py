@@ -3,6 +3,7 @@ from django import forms
 from .models import Summary
 from .models import Qualification
 from .models import Experience
+from .models import Skill
 class SummaryForm(forms.ModelForm):
     
     class Meta:
@@ -19,3 +20,8 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
         fields = ('date','location','duties','description',)
+
+class SkillForm(forms.ModelForm):
+    class Meta:
+        model = Skill
+        fields = ('heading','info',)
