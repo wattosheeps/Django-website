@@ -10,3 +10,10 @@ class Qualification(models.Model):
     location = models.TextField()
     description = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
+
+class Experience(models.Model):
+    date = models.TextField()
+    location = models.TextField()
+    duties = models.TextField()
+    description = models.TextField()
+    date_added = models.DateTimeField(default=timezone.now)

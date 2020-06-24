@@ -18,4 +18,14 @@
             {% endfor %}
             <a href="new-education"><button type="submit">Add Qualification</button></a>
         </div>
+        <div class="Work Experience">
+            <h2 id="id_experience_heading">Work Experience</h2>
+            {% for experience in work_experience %}
+            <a href="{% url 'edit_experience' pk=experience.pk %}"><h3>{{ experience.location }}</h3></a>
+                <h4>{{ experience.date }}</h4>
+                <p>{{ experience.duties|linebreaksbr }}</p>
+                <p>{{ experience.description|linebreaksbr }}</p>
+            {% endfor %}
+            <a href="new-experience"><button type="submit">Add Work Experience</button></a>
+        </div>
     {% endblock %}

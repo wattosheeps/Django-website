@@ -6,14 +6,17 @@ from .forms import SummaryForm
 from .models import Summary
 from .forms import QualificationForm
 from .models import Qualification
+from .models import Experience
+from .forms import ExperienceForm
 # Create your views here.
 def cv_page(request):
     summary = Summary.objects.all()
     qualifications = Qualification.objects.filter(date_added__lte=timezone.now()).order_by('date_added')
+    work_experience = Experience.objects.filter(date_added__lte=timezone.now()).order_by('date_added')
     if summary.count() == 0:
-        return render(request,'cv\cv_page.html',{'summary': "",'qualifications':qualifications})
+        return render(request,'cv\cv_page.html',{'summary': "",'qualifications':qualifications,'work_experience':work_experience})
     else:
-        return render(request,'cv\cv_page.html',{'summary':summary[0],'qualifications':qualifications})
+        return render(request,'cv\cv_page.html',{'summary':summary[0],'qualifications':qualifications,'work_experience':work_experience})
 def edit_summary(request):
     post = get_object_or_404(Summary, pk=1)
     if request.method == "POST":
@@ -53,3 +56,26 @@ def edit_education(request,pk):
     else:
         form = QualificationForm(instance=qualification)
     return render(request, 'cv\\new_education.html', {'form': form})
+def new_experience(request):
+    form = ExperienceForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.date_added = timezone.now()
+            post.save()
+            return redirect('cv_page')
+    else:
+        form = ExperienceForm()
+    return render(request, 'cv\edit_experience.html', {'form':form})
+def edit_experience(request,pk):
+    experience = get_object_or_404(Experience, pk=pk)
+    if request.method == "POST":
+        form = ExperienceForm(request.POST, instance=experience)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.date_added = timezone.now()
+            post.save()
+            return redirect('cv_page')
+    else:
+        form = ExperienceForm(instance=experience)
+    return render(request, 'cv\edit_experience.html', {'form': form})

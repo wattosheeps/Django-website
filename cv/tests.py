@@ -5,6 +5,8 @@ from cv.views import edit_summary
 from cv.views import new_education
 from cv.models import Summary
 from cv.models import Qualification
+from cv.views import new_experience
+from cv.models import Experience
 # Create your tests here.
 class cvPageTest(TestCase):
     def test_url_resolves_to_cv_page_view(self):
@@ -29,19 +31,24 @@ class cvPageTest(TestCase):
         self.assertIn('Generic Summary', response.content.decode())
 
 class educationPageTest(TestCase):
-    def test_url_resolves_to_education_page(self):
-        found = resolve('/cv/education-overview')
-        self.assertEqual(found.func, education_overview)
-    def test_returns_correct_html(self):
-        response = self.client.get('/cv/education-overview')
-        html = response.content.decode('utf8')  
-        self.assertTemplateUsed(response, 'cv\education_overview.html')
     def test_button_has_correct_url_redirect(self):
-        response = self.client.get('/cv/education-overview')
+        response = self.client.get('/cv/')
         html = response.content.decode('utf8')
         self.assertIn('href="new-education"',html)
         found = resolve('/cv/new-education')
         self.assertEqual(found.func, new_education)
+
+class experiencePageTest(TestCase):
+    def test_returns_correct_html(self):
+        response = self.client.get('/cv/new-experience')
+        html = response.content.decode('utf8')  
+        self.assertTemplateUsed(response, 'cv\edit_experience.html')
+    def test_button_has_correct_url_redirect(self):
+        response = self.client.get('/cv/')
+        html = response.content.decode('utf8')
+        self.assertIn('href="new-experience"',html)
+        found = resolve('/cv/new-experience')
+        self.assertEqual(found.func, new_experience)
 class SummaryModelTest(TestCase):
     def test_saving_and_retrieving_summary(self):
         summary = Summary()
@@ -77,4 +84,34 @@ class QualificationsModelTest(TestCase):
 
         self.assertEqual(second_saved_item.date, '2005 - 2015')
         self.assertEqual(second_saved_item.location, 'test road')
+        self.assertEqual(second_saved_item.description, 'more unique description')
+
+class ExperienceModelTest(TestCase):
+    def test_and_retrieve_experience(self):
+        experience = Experience()
+        experience.date = "2005 - 2007"
+        experience.location = "test street"
+        experience.duties = "making coffee"
+        experience.description = "Generic description"
+        experience.save()
+
+        experience2 = Experience()
+        experience2.date = "2005 - 2015"
+        experience2.location = "test road"
+        experience2.duties = "doing important things"
+        experience2.description = "more unique description"
+        experience2.save()
+        saved_items = Experience.objects.all()
+        self.assertEqual(saved_items.count(), 2)
+
+        first_saved_item = saved_items[0]
+        second_saved_item = saved_items[1]
+        self.assertEqual(first_saved_item.date, '2005 - 2007')
+        self.assertEqual(first_saved_item.location, 'test street')
+        self.assertEqual(first_saved_item.duties, 'making coffee')
+        self.assertEqual(first_saved_item.description, 'Generic description')
+
+        self.assertEqual(second_saved_item.date, '2005 - 2015')
+        self.assertEqual(second_saved_item.location, 'test road')
+        self.assertEqual(second_saved_item.duties, 'doing important things')
         self.assertEqual(second_saved_item.description, 'more unique description')
