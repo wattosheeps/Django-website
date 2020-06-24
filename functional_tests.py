@@ -52,14 +52,8 @@ class firstVisitorTest(unittest.TestCase):
         #The user can see a section with the heading "Education and Qualifications"
         heading = self.browser.find_element_by_id('id_education_heading')
         self.assertEqual(heading.text,"Education and Qualifications")
-        #The user clicks the heading and is taken to a sepearte page with all the listings
-        heading.click()
-        header_text = self.browser.find_element_by_tag_name('h2').text
-        self.assertIn('Education and Qualifications', header_text)
-        time.sleep(2)
-        ##self.assertIn('Education and Qualifications',self.browser.title)
         #The user clicks the "Add" button
-        self.browser.find_element_by_xpath('//button[text()="Add"]').click()
+        self.browser.find_element_by_xpath('//button[text()="Add Qualification"]').click()
         #The user types in the date, location, and description
         date = self.browser.find_element_by_id('id_date')
         date.clear()
@@ -72,16 +66,18 @@ class firstVisitorTest(unittest.TestCase):
         description.send_keys('Generic description')
         
         time.sleep(1)
-        #The user clicks "submit" and is taken back to the Education and Qualifications page
+        #The user clicks "submit" and is taken back to the main page
         self.browser.find_element_by_xpath('//button[text()="Save"]').click()
         
         #The user can now see the listings
         newListing = self.browser.find_element_by_link_text('test town')
+        time.sleep(1)
         #The user then clicks on their uploaded qualification
-        newListing.click()
+        self.browser.get(newListing.get_attribute("href"))
+        time.sleep(10)
         #The user is taken to another page, where they are able to edit the data
         location = self.browser.find_element_by_id('id_location')
-        self.assertEqual('test town',location)
+        self.assertEqual('test town',location.text)
         #The user changes the date
         date = self.browser.find_element_by_id('id_date')
         date.clear()
@@ -90,6 +86,7 @@ class firstVisitorTest(unittest.TestCase):
         self.browser.find_element_by_xpath('//button[text()="Save"]').click()
         #The user is now returned to the overview page where they can now see their updated listing
 
+        #The user 
         self.fail('Implement dates properly')
         self.fail('Finish the test!')
 

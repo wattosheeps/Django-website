@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.urls import resolve
 from cv.views import cv_page
 from cv.views import edit_summary
-from cv.views import education_overview
 from cv.views import new_education
 from cv.models import Summary
 from cv.models import Qualification

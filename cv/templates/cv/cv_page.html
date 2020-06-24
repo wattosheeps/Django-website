@@ -10,11 +10,12 @@
             <a href="edit-summary"><button type="submit">Update Summary</button></a>
         </div>        
         <div class="Education and qualifications">
-            <a href="education-overview"><h2 id="id_education_heading">Education and Qualifications</h2></a>
+            <h2 id="id_education_heading">Education and Qualifications</h2>
             {% for qualification in qualifications %}
             <a href="{% url 'edit_education' pk=qualification.pk %}"><h3>{{ qualification.location }}</h3></a>
                 <h4>{{ qualification.date }}</h4>
                 <p>{{ qualification.description|linebreaksbr }}</p>
-    {% endfor %}
+            {% endfor %}
+            <a href="new-education"><button type="submit">Add Qualification</button></a>
         </div>
     {% endblock %}

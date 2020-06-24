@@ -27,9 +27,9 @@ def edit_summary(request):
         form = SummaryForm(instance=post)
     return render(request,'cv\edit_summary.html', {'form': form})
     
-def education_overview(request):
-    qualifications = Qualification.objects.filter(date_added__lte=timezone.now()).order_by('date_added')
-    return render(request,'cv\education_overview.html',{'qualifications':qualifications})
+##def education_overview(request):
+    ##qualifications = Qualification.objects.filter(date_added__lte=timezone.now()).order_by('date_added')
+    ##return render(request,'cv\education_overview.html',{'qualifications':qualifications})
 def new_education(request):
     form = QualificationForm(request.POST)
     if request.method == "POST":
@@ -37,7 +37,7 @@ def new_education(request):
             post = form.save(commit=False)
             post.date_added = timezone.now()
             post.save()
-            return redirect('education_overview')
+            return redirect('cv_page')
     else:
         form = QualificationForm()
     return render(request, 'cv\\new_education.html', {'form':form})
@@ -49,7 +49,7 @@ def edit_education(request,pk):
             post = form.save(commit=False)
             post.date_added = timezone.now()
             post.save()
-            return redirect('education_overview')
+            return redirect('cv_page')
     else:
         form = QualificationForm(instance=qualification)
     return render(request, 'cv\\new_education.html', {'form': form})
