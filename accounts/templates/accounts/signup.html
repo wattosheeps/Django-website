@@ -4,9 +4,9 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{% static 'css/cv.css' %}">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
         <title>
-            Archie's CV
+            Archie Watson
         </title>
     </head>
     <body>
@@ -18,17 +18,9 @@
                   </div>
                   <ul class="nav navbar-nav">
                     <li><a href="/">Blog</a></li>
-                    <li class="active"><a href="/cv">CV</a></li>
+                    <li><a href="/cv">CV</a></li>
                   </ul>
-                  <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
-                        <li><a href="#"><span class="glyphicon glyphicon-star"></span> {{ user.username }}</a></li>
-                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-                    {% else %}
-                        <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    {% endif %}
-                  </ul>
+                  
                 </div>
               </nav>
         </header>
@@ -37,8 +29,23 @@
         <div class="content-container">
             <div class="row">
                 <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
+                    <h2>Sign up Form</h2>
+                    <form method="post" class="post-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small style="color: grey">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        </p>
+                    {% endfor %}
+                    <button type="submit">Sign up</button>
+                    </form>
                 </div>
             </div>
         </div>

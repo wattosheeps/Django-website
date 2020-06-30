@@ -9,18 +9,33 @@ class SummaryForm(forms.ModelForm):
     class Meta:
         model = Summary
         fields = ('text',)
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class QualificationForm(forms.ModelForm):
-
+    
     class Meta:
         model = Qualification
-        fields = ('date','location','description',)
+        fields = ('date_start','date_end','location','description',)
+        widgets = {
+            'date_start': DateInput(),
+            'date_end': DateInput(),
+        }
 
 class ExperienceForm(forms.ModelForm):
-
     class Meta:
         model = Experience
-        fields = ('date','location','duties','description',)
-
+        fields = ('date_start','date_end','location','duties','description',)
+        labels = {
+            'date_start': 'Start Date',
+            'date_end': 'End Date',
+            'location': 'Buisness/Company',
+            'description': 'Description',
+            'duties': 'Duties while working'
+        }
+        widgets = {
+            'date_start': DateInput(),
+            'date_end': DateInput(),
+        }
 class SkillForm(forms.ModelForm):
     class Meta:
         model = Skill

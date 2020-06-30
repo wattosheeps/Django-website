@@ -1,54 +1,126 @@
 {% extends 'cv/base.html' %}
     {% block content %}
-        <div class="basic information">
-            <h2>Archie Watson</h2>
-            <p>Address Line 1
-               <br>Address Line 2
-               <br>Town
-               <br>City
-               <br>Postcode
-            </p>
-            <p>
+    <div class="cv-page">
+        <h1 class="title">Archie Watson</h1>
+        <div class="basic-information">
+            <div class="Address-info">
+                <p>     Address Line 1
+                    <br>Address Line 2
+                    <br>Town
+                    <br>City
+                    <br>Postcode
+                </p>
+            </div>
+            <div class="contact-info"><p>
                 Mobile Number
             </p>
             <p>
                 Email Address
-            </p>
+            </p></div>
+            
         </div>
-        <div class="summary-text">
-                    
-            <h2>Summary</h2>
-            <p id="id_summary">{{ summary.text|linebreaksbr }}</p>
-            <div class="date">
-                <p>last edited: {{ summary.last_edited }}</p>
+        <div class="cv-contents">
+            <div class="summary-text">
+                <div class="heading_and_add">
+                    <h2>Summary</h2>
+                    {% if user.is_authenticated %}
+                        <a href="edit-summary" class="button" id="summary_button"><span class="glyphicon glyphicon-pencil"></span></a>
+                    {% endif %}
+                </div>
+                <p id="id_summary">{{ summary.text|linebreaksbr }}</p>
+                <!-- <div class="date">
+                    <p>last edited: {{ summary.last_edited }}</p>
+                </div> -->
+                
+            </div>        
+            <div class="Education_and_qualifications">
+                <div class="heading_and_add">
+                    <h2 id="id_education_heading">Education and Qualifications</h2>
+                    {% if user.is_authenticated %}
+                        <a href="new-education" class="button" id="education_button"><span class="glyphicon glyphicon-plus"></span></a>
+                    {% endif %}
+                </div>
+                {% for qualification in qualifications %}
+                <div class="qualification">
+                    <div class = "date">
+                        <h3>{{ qualification.date_start|date:"M Y" }} - {{qualification.date_end|date:"M Y"}}</h3>
+                    </div>
+                    <div class="description">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'edit_education' pk=qualification.pk %}">
+                        {% endif %}
+                                <h3>{{ qualification.location }}</h3>
+                            </a>
+                        <p>{{ qualification.description|linebreaksbr }}</p>
+                    </div>
+                    <div class="delete">
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-default" href="{% url 'qualification_remove' pk=qualification.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                
             </div>
-            <a href="edit-summary"><button type="submit">Update Summary</button></a>
-        </div>        
-        <div class="Education and qualifications">
-            <h2 id="id_education_heading">Education and Qualifications</h2>
-            {% for qualification in qualifications %}
-            <a href="{% url 'edit_education' pk=qualification.pk %}"><h3>{{ qualification.location }}</h3></a>
-                <h4>{{ qualification.date }}</h4>
-                <p>{{ qualification.description|linebreaksbr }}</p>
-            {% endfor %}
-            <a href="new-education"><button type="submit">Add Qualification</button></a>
+            <div class="Work_Experience">
+                <div class="heading_and_add">
+                    <h2 id="id_experience_heading">Work Experience</h2>
+                    {% if user.is_authenticated %}
+                        <a href="new-experience" class="Button" id="experience_button"><span class="glyphicon glyphicon-plus"></span></a>
+                    {% endif %}
+                </div>
+                {% for experience in work_experience %}
+                <div class="experience_listing">
+                    <div class="date">
+                        <h4>{{ experience.date_start|date:"M Y" }} - {{experience.date_end|date:"M Y"}}</h4>
+                    </div>
+                    <div class="description">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'edit_experience' pk=experience.pk %}">
+                        {% endif %}
+                                <h3>{{ experience.location }}</h3>
+                            </a>
+                        <p>{{ experience.duties|linebreaksbr }}</p>
+                        <p>{{ experience.description|linebreaksbr }}</p>
+                    </div>
+                    <div class="delete">
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-default" href="{% url 'experience_remove' pk=experience.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                
+                
+            </div>
+            <div class="Skills">
+                <div class="heading_and_add">
+                    <h2 id="id_skills_heading">Additional Skills and Information</h2>
+                    {% if user.is_authenticated %}
+                        <a href="new-skill" class="Button" id="skills_button"><span class="glyphicon glyphicon-plus"></span></a>
+                    {% endif %}
+                </div>
+                {% for skill in skills %}
+                <div class="skill">
+                    <div class="skill-heading">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'edit_skill' pk=skill.pk %}">
+                        {% endif %}
+                                <h3>{{ skill.heading }}</h3>
+                            </a>
+                    </div>
+                    <div class="skill-info">
+                        <p>{{ skill.info|linebreaksbr }}</p>
+                    </div>
+                    <div class="delete">
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-default" href="{% url 'skill_remove' pk=skill.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
         </div>
-        <div class="Work Experience">
-            <h2 id="id_experience_heading">Work Experience</h2>
-            {% for experience in work_experience %}
-            <a href="{% url 'edit_experience' pk=experience.pk %}"><h3>{{ experience.location }}</h3></a>
-                <h4>{{ experience.date }}</h4>
-                <p>{{ experience.duties|linebreaksbr }}</p>
-                <p>{{ experience.description|linebreaksbr }}</p>
-            {% endfor %}
-            <a href="new-experience"><button type="submit">Add Work Experience</button></a>
-        </div>
-        <div class="Skills">
-            <h2 id="id_skills_heading">Additional Skills and Information</h2>
-            {% for skill in skills %}
-            <a href="{% url 'edit_skill' pk=skill.pk %}"><h3>{{ skill.heading }}</h3></a>
-                <p>{{ skill.info|linebreaksbr }}</p>
-            {% endfor %}
-            <a href="new-skill"><button type="submit">Add Skill/Information</button></a>
-        </div>
+    </div>
     {% endblock %}

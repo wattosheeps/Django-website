@@ -1,0 +1,98 @@
+/* .page-header { */
+    /* background-color: #008166; */
+/*    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+} */
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #00458B;
+    font-size: 36pt;
+    text-decoration: none;
+}
+body {
+    padding-top: 65px;
+    background-color: grey;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 0px;
+    }
+  }
+.col-md-8{
+    margin-left: 40px;
+    width:95%;
+    /* border-style: double; */
+}
+.content {
+    margin-left: 40px;
+}
+.cv-page{
+    border-style: double;
+    background-color: white;
+    
+}
+h1, h2, h3, h4 {
+    font-family: 'Lobster', cursive;
+    color: black;
+}
+
+.date {
+    color: #00458B;
+}
+.save {
+    float: right;
+}
+.basic-information{
+    /* background-color: aqua; */
+    display:flex;
+    padding: 20px;
+    justify-content:space-between;
+}
+.qualification, .experience_listing, .skill{
+    width: 100%;
+    /* background-color: aqua; */
+    padding: 10px;
+    display:grid;
+    grid-template-columns: 1fr 1fr auto;
+    grid-gap: 50px;
+    justify-content: center;
+}
+.delete{
+    align-self: center;
+}
+.heading_and_add{
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-gap: 20px;
+    background-color: #e6e3dc;
+    width:100%;
+    align-items: center;
+    border-style: inset;
+}
+.date, .description{
+    /* background-color: pink; */
+    padding: 10px;
+}
+
+.button, .button:hover, .button:visited {
+    color: black;
+    font-size: 15pt;
+    margin-right: 20px;
+}
+
+.cv-contents{
+    padding: 10px;
+}
+
+.title{
+    color: black;
+    text-align: center;
+}
+  nav ul {
+    margin: 0px;
+    padding: 5px 0px 5px 30px;
+  }
+  nav li {
+    display: inline;
+    margin-right: 20px;
+  }
