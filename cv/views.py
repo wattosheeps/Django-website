@@ -18,9 +18,9 @@ def cv_page(request):
     work_experience = Experience.objects.filter(date_added__lte=timezone.now()).order_by('-date_end')
     skills = Skill.objects.all()
     if summary.count() == 0:
-        return render(request,'cv\cv_page.html',{'summary': "",'qualifications':qualifications,'work_experience':work_experience,'skills':skills})
+        return render(request,'cv/cv_page.html',{'summary': "",'qualifications':qualifications,'work_experience':work_experience,'skills':skills})
     else:
-        return render(request,'cv\cv_page.html',{'summary':summary[0],'qualifications':qualifications,'work_experience':work_experience,'skills':skills})
+        return render(request,'cv/cv_page.html',{'summary':summary[0],'qualifications':qualifications,'work_experience':work_experience,'skills':skills})
 @login_required
 def edit_summary(request):
     post = get_object_or_404(Summary, pk=1)
@@ -33,7 +33,7 @@ def edit_summary(request):
             return redirect('cv_page')
     else:
         form = SummaryForm(instance=post)
-    return render(request,'cv\edit_summary.html', {'form': form})
+    return render(request,'cv/edit_summary.html', {'form': form})
 @login_required   
 def new_education(request):
     form = QualificationForm(request.POST)
@@ -45,7 +45,7 @@ def new_education(request):
             return redirect('cv_page')
     else:
         form = QualificationForm()
-    return render(request, 'cv\\new_education.html', {'form':form})
+    return render(request, 'cv/new_education.html', {'form':form})
 @login_required
 def edit_education(request,pk):
     qualification = get_object_or_404(Qualification, pk=pk)
@@ -58,7 +58,7 @@ def edit_education(request,pk):
             return redirect('cv_page')
     else:
         form = QualificationForm(instance=qualification)
-    return render(request, 'cv\\new_education.html', {'form': form})
+    return render(request, 'cv/new_education.html', {'form': form})
 @login_required
 def new_experience(request):
     form = ExperienceForm(request.POST)
@@ -70,7 +70,7 @@ def new_experience(request):
             return redirect('cv_page')
     else:
         form = ExperienceForm()
-    return render(request, 'cv\edit_experience.html', {'form':form})
+    return render(request, 'cv/edit_experience.html', {'form':form})
 @login_required
 def edit_experience(request,pk):
     experience = get_object_or_404(Experience, pk=pk)
@@ -83,7 +83,7 @@ def edit_experience(request,pk):
             return redirect('cv_page')
     else:
         form = ExperienceForm(instance=experience)
-    return render(request, 'cv\edit_experience.html', {'form': form})
+    return render(request, 'cv/edit_experience.html', {'form': form})
 @login_required
 def new_skill(request):
     form = SkillForm(request.POST)
@@ -95,7 +95,7 @@ def new_skill(request):
             return redirect('cv_page')
     else:
         form = SkillForm()
-    return render(request, 'cv\edit_skill.html', {'form':form})
+    return render(request, 'cv/edit_skill.html', {'form':form})
 @login_required
 def edit_skill(request,pk):
     skill = get_object_or_404(Skill, pk=pk)
@@ -108,7 +108,7 @@ def edit_skill(request,pk):
             return redirect('cv_page')
     else:
         form = SkillForm(instance=skill)
-    return render(request, 'cv\edit_skill.html', {'form': form})
+    return render(request, 'cv/edit_skill.html', {'form': form})
 @login_required
 def experience_remove(request, pk):
     post = get_object_or_404(Experience, pk=pk)
