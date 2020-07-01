@@ -42,6 +42,7 @@ h1, h2, h3, h4 {
 .save {
     float: right;
 }
+
 .basic-information{
     /* background-color: aqua; */
     display:flex;
@@ -88,11 +89,3 @@ h1, h2, h3, h4 {
     color: black;
     text-align: center;
 }
-  nav ul {
-    margin: 0px;
-    padding: 5px 0px 5px 30px;
-  }
-  nav li {
-    display: inline;
-    margin-right: 20px;
-  }

@@ -21,7 +21,9 @@ body {
     text-decoration: underline;
     text-decoration-color: orange;
 }
-
+.navbar-custom { 
+    background-color: #FFE699; 
+} 
 .content {
     margin-left: 40px;
 }
